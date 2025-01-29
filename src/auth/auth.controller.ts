@@ -1,5 +1,6 @@
-import {Controller, Post} from "@nestjs/common";
+import {Body, Controller, Post, Req} from "@nestjs/common";
 import {AuthService} from "./auth.service";
+import {AuthDto} from "./AuthDTO";
 
 @Controller('auth')
 export class AuthController{
@@ -11,16 +12,36 @@ export class AuthController{
     }
 
     @Post('signUp')
-    signUp():String{
-        console.log("I have signed up");
-        return this.authService.signUp();
+    signUp(@Body() dto: AuthDto){
+
+        console.log({
+            dto,
+        })
+        // console.log(req.body);
+        return this.authService.signUp(dto);
     }
 
 
+    // @Post('signUp')
+    // signUp(@Body('username') email: string,
+    //        @Body('password') password: string):String{
+    //
+    //     console.log({
+    //         email,
+    //         typeOfEmail: typeof email,
+    //         password,
+    //         typeOfPassword: typeof password
+    //     })
+    //
+    //
+    //     // console.log(req.body);
+    //     return this.authService.signUp();
+    // }
+
     @Post('signIn')
-    signIn():String{
+    signIn(@Body() dto: AuthDto){
         console.log("I have signed in");
-        return this.authService.login();
+        return this.authService.login(dto);
     }
 
 
